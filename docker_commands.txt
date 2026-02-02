@@ -1,0 +1,15 @@
+1. to create an docker image of ubuntu
+cmd: docker run ubuntu
+2. if we would like to have an interactive mode
+cmd: docker run -it ubuntu
+3. to create a python image
+cmd: docker run python:3.13.11-slim
+4. if we would like to have an interactive mode inside the python image then 
+cmd: docker run -it entrypoint=bash python:3.13.11-slim
+5. to get the list of id of all docker image 
+cmd: docker ps -aq
+6. to delete all docker images 
+cmd: docker rm `docker ps -aq`
+7. create a docker image with volume
+
+

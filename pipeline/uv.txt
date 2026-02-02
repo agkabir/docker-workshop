@@ -1,0 +1,7 @@
+UV to create and manage virtual environment
+1. install uv
+cmd: pip install uv
+2. to initalize python version
+cmd: uv init --python 3.13
+3. to run python initialized by uv 
+ uv run python 
