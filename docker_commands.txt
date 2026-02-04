@@ -13,3 +13,15 @@ cmd: docker rm `docker ps -aq`
 7. create a docker image with volume
 
 
+## to run the ingest_data.py using uv
+uv run python ingest_data.py --pg-user=root --pg-pass=root --pg-host=localhost --pg-port=5432 --pg-db=ny_taxi --target-table=yellow_taxi_trip_2021_01 --year=2021 --month=1 --chunksize=100000
+
+## to run pipeline using container
+docker build taxi_ingest:v001 . (building docker image from Dockerfile)
+docker run -it --rm --network=pipeline_default taxi_ingest:v001 --pg-user=root --pg-pass=root --pg-host=postgres --pg-port=5432 --pg-db=ny_taxi --target-table=yellow_taxi_trip_2021_01 --year=2021 --month=1 --chunksize=100000
+
+## to run postgres SQL database as docker image under a network
+docker run -it --rm --name pgdatabase --network taxi-net -e POSTGRES_USER="root" -e POSTGRES_PASSWORD="root" -e POSTGRES_DB="ny_taxi" -v ny_taxi_postgres_data:/var/lib/postgressql -p 5432:5432 postgres:18 
+
+## to run pgadmin as docker image under a network
+docker run -it -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" -e PGADMIN_DEFAULT_PASSWORD="root" -v pgadmin_data:/var/lib/pgadmin -p 8085:80 --network=taxi-net --name pgadmin dpage/pgadmin4
